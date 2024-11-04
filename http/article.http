@@ -1,0 +1,29 @@
+### Offset
+GET localhost:8080/articles/paging/offset?size=10&page=10
+
+### Cursor
+GET localhost:8080/articles/paging/cursor?size=10&cursorId=98
+
+### Article 생성
+POST localhost:8080/articles/make
+Content-Type: application/json
+
+{
+  "articles" : [
+    {
+      "id": 4,
+      "title": "sunt aut facere repellat ",
+      "createdAt": "2024-10-19T15:20:41.332Z"
+    },
+    {
+      "id": 2,
+      "title": "qui est esse",
+      "createdAt": "2024-10-19T15:20:41.332Z"
+    },
+    {
+      "id": 3,
+      "title": "ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "createdAt": "2024-10-19T15:20:41.332Z"
+    }
+  ]
+}
