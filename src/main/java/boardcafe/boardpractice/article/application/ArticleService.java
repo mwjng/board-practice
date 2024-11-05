@@ -6,7 +6,9 @@ import boardcafe.boardpractice.article.application.response.ArticlesCursorRespon
 import boardcafe.boardpractice.article.application.response.ArticlesOffsetResponse;
 import boardcafe.boardpractice.article.domain.Article;
 import boardcafe.boardpractice.article.domain.repository.ArticleRepository;
+import boardcafe.boardpractice.article.infrastructure.ArticleJdbcRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ public class ArticleService {
     private static final String DEFAULT_SORT_FIELD = "articleNo";
 
     private final ArticleRepository articleRepository;
+    private final ArticleJdbcRepository articleJdbcRepository;
 
     public ArticlesOffsetResponse getAllArticlesWithOffset(final Pageable pageable) {
         final Page<Article> articles = articleRepository.findAll(pageable.previousOrFirst());
@@ -38,7 +41,7 @@ public class ArticleService {
         final List<Article> articles = requests.stream()
             .map(request -> new Article(request.articleNo(), request.title()))
             .toList();
-        articleRepository.saveAll(articles);
+        articleJdbcRepository.saveAll(articles);
     }
 
     private ArticlesOffsetResponse getArticlesOffsetResponse(final Page<Article> page) {
