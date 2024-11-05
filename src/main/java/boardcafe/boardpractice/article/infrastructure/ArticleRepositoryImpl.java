@@ -1,6 +1,7 @@
 package boardcafe.boardpractice.article.infrastructure;
 
 import boardcafe.boardpractice.article.domain.Article;
+import boardcafe.boardpractice.article.domain.repository.ArticleCustomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,11 +13,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class ArticleJdbcRepository {
+public class ArticleRepositoryImpl implements ArticleCustomRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public void saveAll(List<Article> articles) {
+    @Override
+    public void saveAllInBatch(List<Article> articles) {
         String sql = "insert into article (article_no, title, created_at, modified_at) values(?,?, now(), now())";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
