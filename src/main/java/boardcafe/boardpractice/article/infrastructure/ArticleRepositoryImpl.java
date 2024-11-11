@@ -18,13 +18,13 @@ public class ArticleRepositoryImpl implements ArticleCustomRepository {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public void saveAllInBatch(List<Article> articles) {
-        String sql = "insert into article (article_no, title, created_at, modified_at) values(?,?, now(), now())";
+    public void saveAllInBatch(final List<Article> articles) {
+        final String sql = "insert into article (article_no, title, created_at, modified_at) values(?,?, now(), now())";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
 
             @Override
             public void setValues(final PreparedStatement ps, final int i) throws SQLException {
-                Article article = articles.get(i);
+                final Article article = articles.get(i);
                 ps.setLong(1, article.getArticleNo());
                 ps.setString(2, article.getTitle());
             }
